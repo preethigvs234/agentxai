@@ -1,0 +1,127 @@
+import React from "react";
+
+// Header Component
+function Header() {
+  return <h1>My Product Store</h1>;
+}
+
+// ProductCard Component
+function ProductCard(props) {
+  return (
+    <div
+      style={{
+        border: "1px solid black",
+        padding: "10px",
+        margin: "10px",
+        width: "200px",
+        display: "inline-block",
+      }}
+    >
+      <h3>{props.name}</h3>
+      <p>Price: ₹{props.price}</p>
+      <p>Category: {props.category}</p>
+
+      <button onClick={() => props.onBuy(props.name)}>
+        Buy Now
+      </button>
+    </div>
+  );
+}
+
+// Main Component
+function App() {
+
+  // Product Array
+  const products = [
+    { id: 1, name: "Laptop", price: 55000, category: "Electronics" },
+    { id: 2, name: "Shoes", price: 1500, category: "Fashion" },
+    { id: 3, name: "Watch", price: 2500, category: "Accessories" },
+  ];
+
+  // Event Handler
+  const handleBuy = (productName) => {
+    alert(`You bought ${productName}`);
+  };
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <Header />
+
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.name}
+          price={product.price}
+          category={product.category}
+          onBuy={handleBuy}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default App;
+Header.js
+function Header() {
+  return <h1>My Product Store</h1>;
+}
+
+export default Header;
+ProductCard.js
+function ProductCard({ name, price, category, onBuy }) {
+  return (
+    <div style={{
+      border: "1px solid black",
+      padding: "10px",
+      margin: "10px",
+      width: "200px"
+    }}>
+      <h3>{name}</h3>
+      <p>Price: ₹{price}</p>
+      <p>Category: {category}</p>
+
+      <button onClick={() => onBuy(name)}>
+        Buy Now
+      </button>
+    </div>
+  );
+}
+
+export default ProductCard;
+App.js
+import React from "react";
+import Header from "./Header";
+import ProductCard from "./ProductCard";
+
+const products = [
+  { id: 1, name: "Laptop", price: 55000, category: "Electronics" },
+  { id: 2, name: "Shoes", price: 1500, category: "Fashion" },
+  { id: 3, name: "Watch", price: 2500, category: "Accessories" }
+];
+
+function App() {
+
+  const handleBuy = (productName) => {
+    alert(`You bought ${productName}`);
+  };
+
+  return (
+    <div style={{ textAlign: "center" }}>
+
+      <Header />
+
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.name}
+          price={product.price}
+          category={product.category}
+          onBuy={handleBuy}
+        />
+      ))}
+
+    </div>
+  );
+}
+
+export default App;
