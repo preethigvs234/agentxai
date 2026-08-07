@@ -1,0 +1,178 @@
+import React,{useState,useEffect,useRef,useMemo,createContext} from "react";
+
+const ThemeContext=createContext();
+
+function App(){
+
+const[theme,setTheme]=useState("light");
+const[products,setProducts]=useState([]);
+const[name,setName]=useState("");
+const[search,setSearch]=useState("");
+
+const inputRef=useRef(null);
+
+useEffect(()=>{
+inputRef.current.focus();
+},[products]);
+
+const addProduct=()=>{
+if(name){
+setProducts([...products,{id:Date.now(),name}]);
+setName("");
+}
+};
+
+const filteredProducts=useMemo(()=>{
+return products.filter(p=>
+p.name.toLowerCase().includes(search.toLowerCase()));
+},[products,search]);
+
+return(
+<ThemeContext.Provider value={theme}>
+<div>
+
+<button onClick={()=>setTheme(theme==="light"?"dark":"light")}>
+Toggle Theme
+</button>
+
+<input
+ref={inputRef}
+value={name}
+onChange={(e)=>setName(e.target.value)}
+placeholder="Product Name"
+/>
+
+<button onClick={addProduct}>Add</button>
+
+<input
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+placeholder="Search"
+/>
+
+<ul>
+{filteredProducts.map(p=>(
+<li key={p.id}>{p.name}</li>
+))}
+</ul>
+
+</div>
+</ThemeContext.Provider>
+);
+
+}
+import React,{useState,useEffect,useRef,useMemo,createContext,useContext} from "react";
+
+const ThemeContext=createContext();
+
+function ThemeStatus(){
+  const theme=useContext(ThemeContext);
+  return <p>Current Theme: {theme}</p>;
+}
+
+function App(){
+
+const[theme,setTheme]=useState("light");
+
+const[products,setProducts]=useState([
+  {name:"Pen",price:10,qty:5},
+  {name:"Notebook",price:40,qty:3}
+]);
+
+const[search,setSearch]=useState("");
+const[productName,setProductName]=useState("");
+const[productPrice,setProductPrice]=useState("");
+const[productQty,setProductQty]=useState("");
+
+const inputRef=useRef(null);
+
+useEffect(()=>{
+  document.title=`Inventory - ${products.length} products`;
+},[products]);
+
+const filteredProducts=useMemo(()=>{
+  return products.filter(p=>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  );
+},[products,search]);
+
+const totalValue=useMemo(()=>{
+  return products.reduce((sum,p)=>sum+p.price*p.qty,0);
+},[products]);
+
+const addProduct=()=>{
+  if(productName&&productPrice&&productQty){
+    setProducts([...products,{
+      name:productName,
+      price:Number(productPrice),
+      qty:Number(productQty)
+    }]);
+
+    setProductName("");
+    setProductPrice("");
+    setProductQty("");
+    inputRef.current.focus();
+  }
+};
+
+const toggleTheme=()=>{
+  setTheme(theme==="light"?"dark":"light");
+};
+
+return(
+<ThemeContext.Provider value={theme}>
+<div>
+
+<button onClick={toggleTheme}>
+Toggle Theme
+</button>
+
+<ThemeStatus/>
+
+<input
+ref={inputRef}
+value={productName}
+onChange={(e)=>setProductName(e.target.value)}
+placeholder="Product Name"
+/>
+
+<input
+value={productPrice}
+onChange={(e)=>setProductPrice(e.target.value)}
+placeholder="Price"
+/>
+
+<input
+value={productQty}
+onChange={(e)=>setProductQty(e.target.value)}
+placeholder="Quantity"
+/>
+
+<button onClick={addProduct}>
+Add Product
+</button>
+
+<input
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+placeholder="Search"
+/>
+
+<ul>
+{filteredProducts.map((p,index)=>(
+<li key={index}>
+{p.name} - ₹{p.price} × {p.qty}
+</li>
+))}
+</ul>
+
+<h3>Total Value: {totalValue}</h3>
+
+</div>
+</ThemeContext.Provider>
+);
+
+}
+export default App;
+
+export default App;
