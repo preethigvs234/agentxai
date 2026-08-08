@@ -1,0 +1,996 @@
+Experiment 1: Demonstrate JSX and Virtual DOM
+
+npm create vite@latest MY_APP -- --template react
+cd MY_APP
+npm install
+npm run dev
+
+//App.jsx
+import React, { useState } from "react";
+
+function App() {
+
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h1>JSX and Virtual DOM Demo</h1>
+
+      <p>Count: {count}</p>
+
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+
+    </div>
+  );
+}
+
+export default App;
+
+OR
+
+MASTER TEMPLATE FOR EXPERIMENT 1
+ 
+App.jsx
+
+import "./App.css";
+import { useState } from "react";
+
+function App() {
+
+  // =========================
+  // JSX Variables
+  // =========================
+
+  const name = "John";
+  const subject = "React";
+  const year = 2026;
+
+  // =========================
+  // Conditional Rendering
+  // =========================
+
+  const status = true;
+
+  // =========================
+  // Array
+  // =========================
+
+  const items = [
+    "Apple",
+    "Banana",
+    "Mango",
+    "Orange"
+  ];
+
+  // =========================
+  // findIndex()
+  // =========================
+
+  const itemIndex = items.findIndex(
+    (item) => item === "Mango"
+  );
+
+  // =========================
+  // useState
+  // =========================
+
+  const [count, setCount] = useState(0);
+
+  return (
+
+    <div style={{
+      margin: "20px",
+      fontFamily: "Arial"
+    }}>
+
+      <h1>React JSX Master Demo</h1>
+
+      <hr />
+
+      <h2>1. JSX Variables</h2>
+
+      <h3>Hello {name}</h3>
+
+      <p>Subject : {subject}</p>
+
+      <p>Year : {year}</p>
+
+      <p>10 + 20 = {10 + 20}</p>
+
+      <hr />
+
+      <h2>2. Conditional Rendering</h2>
+
+      {
+        status ?
+
+        <h3>Access Granted</h3>
+
+        :
+
+        <h3>Access Denied</h3>
+
+      }
+
+      <hr />
+
+      <h2>3. Array using map()</h2>
+
+      <ul>
+
+        {
+
+          items.map((item,index)=>(
+
+            <li key={index}>
+
+              {item}
+
+            </li>
+
+          ))
+
+        }
+
+      </ul>
+
+      <hr />
+
+      <h2>4. Ordered List</h2>
+
+      <ol>
+
+        {
+
+          items.map((item,index)=>(
+
+            <li key={index}>
+
+              {index} : {item}
+
+            </li>
+
+          ))
+
+        }
+
+      </ol>
+
+      <hr />
+
+      <h2>5. findIndex()</h2>
+
+      <p>
+
+        Mango Position :
+
+        {itemIndex}
+
+      </p>
+
+      <hr />
+
+      <h2>6. useState (Virtual DOM)</h2>
+
+      <h3>Counter : {count}</h3>
+
+      <button
+
+        onClick={()=>
+
+          setCount(count+1)
+
+        }
+
+      >
+
+        Increment
+
+      </button>
+
+    </div>
+
+  );
+
+}
+
+export default App;
+
+Experiment 2: Product Listing Page
+MY_APP
+ ↓
+src
+ ↓
+Right Click
+ ↓
+New File
+ ↓
+ProductCard.jsx
+
+//ProductCard.jsx 
+
+import React from "react";
+
+function ProductCard({ name, price, category }) {
+
+  return (
+    <div style={{border:"1px solid black", margin:"10px", padding:"10px"}}>
+
+      <h3>{name}</h3>
+
+      <p>Price: ₹{price}</p>
+
+      <p>Category: {category}</p>
+
+      <button onClick={() => alert(`${name} Purchased`)}>
+        Buy Now
+      </button>
+
+    </div>
+  );
+}
+
+export default ProductCard;
+
+//App.jsx
+
+import React from "react";
+import ProductCard from "./ProductCard";
+
+function App() {
+
+  const products = [
+    {
+      id: 1,
+      name: "Laptop",
+      price: 50000,
+      category: "Electronics"
+    },
+
+    {
+      id: 2,
+      name: "Mobile",
+      price: 20000,
+      category: "Electronics"
+    },
+
+    {
+      id: 3,
+      name: "Shoes",
+      price: 1500,
+      category: "Fashion"
+    }
+  ];
+
+
+  return (
+    <div>
+
+      <h1>Product Listing</h1>
+
+      {
+        products.map((product) => (
+
+          <ProductCard
+            key={product.id}
+            name={product.name}
+            price={product.price}
+            category={product.category}
+          />
+
+        ))
+      }
+
+    </div>
+  );
+}
+
+export default App;
+
+
+
+OR
+
+
+
+
+MASTER TEMPLATE FOR EXPERIMENT 2 SCENARIO
+Folder Structure
+
+src
+│
+├── App.jsx
+├── ProductCard.jsx
+├── App.css
+├── main.jsx
+
+ProductCard.jsx (Child Component)
+
+function ProductCard({
+  name,
+  price,
+  category,
+  rating,
+  stock
+}) {
+
+  const handleClick = () => {
+    alert(`${name} Selected`);
+  };
+
+  return (
+
+    <div
+      style={{
+        border: "2px solid black",
+        margin: "15px",
+        padding: "15px",
+        borderRadius: "10px"
+      }}
+    >
+
+      <h2>{name}</h2>
+
+      <p><b>Price :</b> ₹{price}</p>
+
+      <p><b>Category :</b> {category}</p>
+
+      <p><b>Rating :</b> {rating}</p>
+
+      <p>
+        <b>Status :</b>
+
+        {
+          stock
+          ?
+
+          " In Stock"
+
+          :
+
+          " Out Of Stock"
+        }
+
+      </p>
+
+      <button onClick={handleClick}>
+
+        Buy Now
+
+      </button>
+
+    </div>
+
+  );
+
+}
+
+export default ProductCard;
+
+
+App.jsx (Parent Component)
+
+import "./App.css";
+import ProductCard from "./ProductCard";
+
+function App() {
+
+  const products = [
+
+    {
+      id:1,
+      name:"Laptop",
+      price:50000,
+      category:"Electronics",
+      rating:4.8,
+      stock:true
+    },
+
+    {
+      id:2,
+      name:"Mobile",
+      price:25000,
+      category:"Electronics",
+      rating:4.5,
+      stock:true
+    },
+
+    {
+      id:3,
+      name:"Shoes",
+      price:3000,
+      category:"Fashion",
+      rating:4.2,
+      stock:false
+    }
+
+  ];
+
+  return (
+
+    <div style={{padding:"20px"}}>
+
+      <h1>Product Listing</h1>
+
+      {
+
+        products.map((product)=>(
+
+          <ProductCard
+
+            key={product.id}
+
+            name={product.name}
+
+            price={product.price}
+
+            category={product.category}
+
+            rating={product.rating}
+
+            stock={product.stock}
+
+          />
+
+        ))
+
+      }
+
+    </div>
+
+  );
+
+}
+
+export default App;
+
+Experiment 3: Inventory Management Using Hooks
+
+//App.jsx
+
+import React, { useState, useMemo } from "react";
+
+export default function App() {
+
+  const [products] = useState([
+    { name: "Pen", qty: 10, price: 20 },
+    { name: "Book", qty: 5, price: 100 }
+  ]);
+
+  const [search, setSearch] = useState("");
+
+  const [dark, setDark] = useState(false);
+
+
+  const totalValue = useMemo(() => {
+
+    return products.reduce(
+      (sum, item) => sum + item.qty * item.price,
+      0
+    );
+
+  }, [products]);
+
+
+  const filtered = products.filter((p) =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+
+  return (
+
+    <div
+      style={{
+        backgroundColor: dark ? "#222" : "#fff",
+        color: dark ? "#fff" : "#000",
+        minHeight: "100vh",
+        padding: "20px"
+      }}
+    >
+
+      <h2>Inventory Management</h2>
+
+
+      <button onClick={() => setDark(!dark)}>
+        Toggle Theme
+      </button>
+
+
+      <br /><br />
+
+
+      <input
+        type="text"
+        placeholder="Search Product"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+
+      <ul>
+
+        {
+          filtered.map((p, index) => (
+
+            <li key={index}>
+              {p.name} - Qty: {p.qty} - ₹{p.price}
+            </li>
+
+          ))
+        }
+
+      </ul>
+
+
+      <h3>
+        Total Value: ₹{totalValue}
+      </h3>
+
+
+    </div>
+
+  );
+}
+
+
+
+
+
+
+SCENARIO based -1
+import React, { useState } from 'react';
+
+function App() {
+  const name = "React Developer";
+  const [count, setCount] = useState(0);
+
+  return (
+    <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'Arial' }}>
+      {/* JSX lets us embed JS expressions using { } */}
+      <h1>Hello, {name}!</h1>
+      <p>This page demonstrates JSX syntax and the Virtual DOM.</p>
+
+      <h2>Counter: {count}</h2>
+      {/* Only this text updates in the real DOM when count changes,
+          React's Virtual DOM figures out the smallest possible change */}
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={() => setCount(count - 1)} style={{ marginLeft: '10px' }}>
+        Decrement
+      </button>
+    </div>
+  );
+}
+
+export default App;
+SCENARIO based -2
+import React from 'react';
+
+// Stateless component - just displays a title
+function Header() {
+  return <h1>Product Store</h1>;
+}
+
+// Stateless component - displays data passed in through props
+function ProductCard(props) {
+  return (
+    <div style={{ border: '1px solid gray', padding: '10px', margin: '10px', width: '200px', display: 'inline-block' }}>
+      <h3>{props.name}</h3>
+      <p>Price: ${props.price}</p>
+      <p>Category: {props.category}</p>
+      <button onClick={() => props.onBuyNow(props.name)}>Buy Now</button>
+    </div>
+  );
+}
+
+function App() {
+  const products = [
+    { id: 1, name: 'Laptop', price: 55000, category: 'Electronics' },
+    { id: 2, name: 'Shoes', price: 1500, category: 'Fashion' },
+    { id: 3, name: 'Watch', price: 2500, category: 'Accessories' },
+  ];
+
+  // This function is passed down as a prop, so ProductCard can respond to clicks
+  const handleBuyNow = (productName) => {
+    alert(`You bought ${productName}`);
+  };
+
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <Header />
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          name={product.name}
+          price={product.price}
+          category={product.category}
+          onBuyNow={handleBuyNow}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default App;
+
+SCENARIO based -3
+import React, { useState, useEffect, useRef, useMemo, createContext, useContext } from 'react';
+
+// useContext: create a context so any child can read the theme without passing props down manually
+const ThemeContext = createContext();
+
+function ThemeStatus() {
+  const theme = useContext(ThemeContext);
+  return <p>Current theme: {theme}</p>;
+}
+
+function App() {
+  const [theme, setTheme] = useState('light');
+  const [products, setProducts] = useState([
+    { name: 'Pen', price: 10, qty: 5 },
+    { name: 'Notebook', price: 40, qty: 3 },
+  ]);
+  const [search, setSearch] = useState('');
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState('');
+  const [productQty, setProductQty] = useState('');
+
+  // useRef: reference to the name input, so we can refocus it after adding a product
+  const inputRef = useRef(null);
+
+  // useEffect: runs after render, whenever the products list changes
+  useEffect(() => {
+    document.title = `Inventory - ${products.length} products`;
+  }, [products]);
+
+  // useMemo: only recalculates when products or search actually change
+  const filteredProducts = useMemo(() => {
+    return products.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()));
+  }, [products, search]);
+
+  const totalValue = useMemo(() => {
+    return products.reduce((sum, p) => sum + p.price * p.qty, 0);
+  }, [products]);
+
+  const addProduct = () => {
+    if (productName && productPrice && productQty) {
+      setProducts([...products, { name: productName, price: Number(productPrice), qty: Number(productQty) }]);
+      setProductName('');
+      setProductPrice('');
+      setProductQty('');
+      inputRef.current.focus();
+    }
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
+  const style = {
+    backgroundColor: theme === 'light' ? '#ffffff' : '#333333',
+    color: theme === 'light' ? '#000000' : '#ffffff',
+    padding: '20px',
+    minHeight: '100vh',
+    fontFamily: 'Arial',
+  };
+
+  return (
+    <ThemeContext.Provider value={theme}>
+      <div style={style}>
+        <h1>Inventory Management</h1>
+        <ThemeStatus />
+        <button onClick={toggleTheme}>Toggle Theme</button>
+
+        <h3>Add Product</h3>
+        <input ref={inputRef} placeholder="Name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+        <input placeholder="Price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} style={{ marginLeft: '5px' }} />
+        <input placeholder="Quantity" value={productQty} onChange={(e) => setProductQty(e.target.value)} style={{ marginLeft: '5px' }} />
+        <button onClick={addProduct} style={{ marginLeft: '5px' }}>Add</button>
+
+        <h3>Search Product</h3>
+        <input placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
+
+        <ul>
+          {filteredProducts.map((p, index) => (
+            <li key={index}>{p.name} - ${p.price} x {p.qty}</li>
+          ))}
+        </ul>
+
+        <h3>Total Inventory Value: ${totalValue}</h3>
+      </div>
+    </ThemeContext.Provider>
+  );
+}
+
+export default App;
+
+
+IS 
+1.Write a C program that contains a string (char pointer) with a value 'Hello world'. The program should
+XOR each character in this string with 0 and displays the result.
+#include <stdio.h>
+int main ()
+ {
+char *str = "Hello world";
+// Iterate through each character in the string
+ for (int i = 0; str[i] != '\0'; i++) 
+{
+ // XOR the character with 0 (which doesn't change the character) 
+char result = str[i] ^ 0; 
+// Print the character 
+printf("%c", result); 
+} 
+printf("\n"); 
+// Print a newline at the end 
+return 0;
+ }
+2. Write a C progam that contains a shing (char pointer) with a value 'Hello world'. The program should AND or and XOR each character in this string with 127 and display the result.
+#include <stdio.h>
+int main() {
+    // Initialize the string
+    char *str = "Hello world";
+    
+    // Iterate through each character in the string
+    for (int i = 0; str[i] != '\0'; i++) {
+        char ch = str[i];
+        
+        // Perform AND operation with 127 and print the result
+        printf("Character '%c' AND 127 = %c (ASCII: %d)\n", ch, ch & 127, ch & 127);
+        
+        // Perform XOR operation with 127 and print the result
+        printf("Character '%c' XOR 127 = %c (ASCII: %d)\n", ch, ch ^ 127, ch ^ 127);
+    }
+
+    return 0;
+}
+3.Write a Java progmm to perform encryption and decryption using the following algorithms a. Ceaser cipher b. Substitution cipher c. Hill Cipher
+1. Caesar Cipher:
+Caesar Cipher is a substitution cipher that shifts characters by a fixed number.
+import java.util.Scanner;
+
+public class CaesarCipher {
+
+    // Method to encrypt the text
+    public static String encrypt(String text, int shift) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+
+            if (Character.isUpperCase(ch)) {
+                char c = (char) ((ch - 'A' + shift) % 26 + 'A');
+                result.append(c);
+            } else if (Character.isLowerCase(ch)) {
+                char c = (char) ((ch - 'a' + shift) % 26 + 'a');
+                result.append(c);
+            } else {
+                result.append(ch); // Keep other characters unchanged
+            }
+        }
+
+        return result.toString();
+    }
+
+    // Method to decrypt the text
+    public static String decrypt(String text, int shift) {
+        return encrypt(text, 26 - (shift % 26));
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the text for Caesar Cipher: ");
+        String text = sc.nextLine();
+
+        System.out.println("Enter the shift value (0-25): ");
+        int shift = sc.nextInt();
+
+        // Ensure the shift value is within 0-25
+        shift = shift % 26;
+
+        String encrypted = encrypt(text, shift);
+        System.out.println("Encrypted Text: " + encrypted);
+
+        String decrypted = decrypt(encrypted, shift);
+        System.out.println("Decrypted Text: " + decrypted);
+
+        sc.close();  // Closing the Scanner
+    }
+}
+
+SAMPLE INPUT:
+Enter the text for Caesar Cipher: 
+HelloWorld
+Enter the shift value: 
+3
+SAMPLE OUTPUT:
+Enter the text for Caesar Cipher: 
+HelloWorld
+Enter the shift value: 
+3
+Encrypted Text: KhoorZruog
+Decrypted Text: HelloWorld
+
+Write a Java progmm to perform encryption and decryption using the following algorithms Substitution cipher
+import java.util.Scanner;
+public class SubstitutionCipher {
+    
+    // Define the alphabet
+    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    // Generate substitution alphabet (shift by key)
+    private static String generateSubstitutionAlphabet(int key) {
+        key = key % 26;
+        return ALPHABET.substring(key) + ALPHABET.substring(0, key);
+    }
+
+    // Encryption
+    public static String encrypt(String plainText, int key) {
+        String substitutionAlphabet = generateSubstitutionAlphabet(key);
+        plainText = plainText.toUpperCase();
+        StringBuilder cipherText = new StringBuilder();
+
+        for (char c : plainText.toCharArray()) {
+            if (Character.isLetter(c)) {
+                int index = ALPHABET.indexOf(c);
+                cipherText.append(substitutionAlphabet.charAt(index));
+            } else {
+                cipherText.append(c); // Keep spaces/punctuation unchanged
+            }
+        }
+        return cipherText.toString();
+    }
+
+    // Decryption
+    public static String decrypt(String cipherText, int key) {
+        String substitutionAlphabet = generateSubstitutionAlphabet(key);
+        cipherText = cipherText.toUpperCase();
+        StringBuilder plainText = new StringBuilder();
+
+        for (char c : cipherText.toCharArray()) {
+            if (Character.isLetter(c)) {
+                int index = substitutionAlphabet.indexOf(c);
+                plainText.append(ALPHABET.charAt(index));
+            } else {
+                plainText.append(c);
+            }
+        }
+        return plainText.toString();
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter message: ");
+        String message = sc.nextLine();
+
+        System.out.print("Enter key (shift value 1-25): ");
+        int key = sc.nextInt();
+
+        String encrypted = encrypt(message, key);
+        String decrypted = decrypt(encrypted, key);
+
+        System.out.println("\nOriginal Message: " + message);
+        System.out.println("Encrypted Message: " + encrypted);
+        System.out.println("Decrypted Message: " + decrypted);
+
+        sc.close();
+    }
+}
+
+Enter message: HELLO WORLD
+Enter key (shift value 1-25): 3
+
+Original Message: HELLO WORLD
+Encrypted Message: KHOOR ZRUOG
+Decrypted Message: HELLO WORLD
+
+
+Write a Java progmm to perform encryption and decryption using the following Hillcipher
+import java.util.Scanner;
+public class HillCipher {
+
+    // Function to calculate determinant of 2x2 matrix
+    static int determinant(int[][] key) {
+        return (key[0][0] * key[1][1] - key[0][1] * key[1][0]);
+    }
+
+    // Function to find modular inverse of a number under mod 26
+    static int modInverse(int a, int m) {
+        a = a % m;
+        for (int x = 1; x < m; x++) {
+            if ((a * x) % m == 1) {
+                return x;
+            }
+        }
+        return -1;
+    }
+
+    // Function to get inverse key matrix mod 26
+    static int[][] inverseKey(int[][] key) {
+        int det = determinant(key);
+        det = ((det % 26) + 26) % 26; // make positive
+        int invDet = modInverse(det, 26);
+
+        if (invDet == -1) {
+            throw new IllegalArgumentException("Key matrix is not invertible!");
+        }
+
+        int[][] inv = new int[2][2];
+        inv[0][0] = key[1][1];
+        inv[1][1] = key[0][0];
+        inv[0][1] = -key[0][1];
+        inv[1][0] = -key[1][0];
+
+        // apply mod 26
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                inv[i][j] = ((inv[i][j] * invDet) % 26 + 26) % 26;
+            }
+        }
+        return inv;
+    }
+
+    // Function to encrypt text
+    static String encrypt(String plaintext, int[][] key) {
+        plaintext = plaintext.toUpperCase().replaceAll("[^A-Z]", "");
+        if (plaintext.length() % 2 != 0) {
+            plaintext += "X"; // padding
+        }
+
+        StringBuilder cipher = new StringBuilder();
+        for (int i = 0; i < plaintext.length(); i += 2) {
+            int p1 = plaintext.charAt(i) - 'A';
+            int p2 = plaintext.charAt(i + 1) - 'A';
+
+            int c1 = (key[0][0] * p1 + key[0][1] * p2) % 26;
+            int c2 = (key[1][0] * p1 + key[1][1] * p2) % 26;
+
+            cipher.append((char) (c1 + 'A'));
+            cipher.append((char) (c2 + 'A'));
+        }
+        return cipher.toString();
+    }
+
+    // Function to decrypt text
+    static String decrypt(String ciphertext, int[][] key) {
+        int[][] invKey = inverseKey(key);
+        StringBuilder plain = new StringBuilder();
+
+        for (int i = 0; i < ciphertext.length(); i += 2) {
+            int c1 = ciphertext.charAt(i) - 'A';
+            int c2 = ciphertext.charAt(i + 1) - 'A';
+
+            int p1 = (invKey[0][0] * c1 + invKey[0][1] * c2) % 26;
+            int p2 = (invKey[1][0] * c1 + invKey[1][1] * c2) % 26;
+
+            plain.append((char) (p1 + 'A'));
+            plain.append((char) (p2 + 'A'));
+        }
+        return plain.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int[][] key = {
+            {3, 3},
+            {2, 5}
+        }; // Example invertible key matrix
+
+        System.out.print("Enter plaintext: ");
+        String plaintext = sc.nextLine();
+
+        String encrypted = encrypt(plaintext, key);
+        System.out.println("Encrypted: " + encrypted);
+
+        String decrypted = decrypt(encrypted, key);
+        System.out.println("Decrypted: " + decrypted);
+    }
+}
+Enter plaintext: HELLO
+Encrypted: HIOZHN
+Decrypted: HELLOX
